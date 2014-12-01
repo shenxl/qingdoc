@@ -1,7 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shenxl.qingdoc", "shenxl.qingdoc\shenxl.qingdoc.csproj", "{30D589FD-46EE-4717-B3F2-CF516BF61B1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shenxl.qingdoc.Website", "shenxl.qingdoc\shenxl.qingdoc.Website.csproj", "{30D589FD-46EE-4717-B3F2-CF516BF61B1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shenxl.qingdoc.Common", "shenxl.qingdoc.Common\shenxl.qingdoc.Common.csproj", "{508A0992-DA4C-4619-BBCC-2BFC30DBC6E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shenxl.qingdoc.MCV", "shenxl.qingdoc.MCV\shenxl.qingdoc.MCV.csproj", "{FE6FF9AE-9636-4C9D-8C3D-EDC49A834194}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shenxl.qingdoc.Document", "shenxl.qingdoc.Document\shenxl.qingdoc.Document.csproj", "{C10662A8-2B14-469C-B4B6-F679AF636628}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +19,18 @@ Global
 		{30D589FD-46EE-4717-B3F2-CF516BF61B1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30D589FD-46EE-4717-B3F2-CF516BF61B1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30D589FD-46EE-4717-B3F2-CF516BF61B1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{508A0992-DA4C-4619-BBCC-2BFC30DBC6E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{508A0992-DA4C-4619-BBCC-2BFC30DBC6E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{508A0992-DA4C-4619-BBCC-2BFC30DBC6E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{508A0992-DA4C-4619-BBCC-2BFC30DBC6E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE6FF9AE-9636-4C9D-8C3D-EDC49A834194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE6FF9AE-9636-4C9D-8C3D-EDC49A834194}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE6FF9AE-9636-4C9D-8C3D-EDC49A834194}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE6FF9AE-9636-4C9D-8C3D-EDC49A834194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C10662A8-2B14-469C-B4B6-F679AF636628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C10662A8-2B14-469C-B4B6-F679AF636628}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C10662A8-2B14-469C-B4B6-F679AF636628}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C10662A8-2B14-469C-B4B6-F679AF636628}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
