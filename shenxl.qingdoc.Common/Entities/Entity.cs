@@ -1,14 +1,24 @@
-﻿using System;
+﻿using shenxl.qingdoc.Common.Entities.Annotations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace shenxl.qingdoc.Common.Entities
 {
     public interface IEntity
     {
+        /// <summary>
+        /// The entity's unique (and URL-safe) public identifier
+        /// </summary>
+        /// <remarks>
+        /// This is the identifier that should be exposed via the web, etc.
+        /// </remarks>
+        string Key { get; }
     }
 
     public abstract class Entity<TId> : IEntity, IEquatable<Entity<TId>>
@@ -28,6 +38,19 @@ namespace shenxl.qingdoc.Common.Entities
         }
         private object _id;
 
+        [Unique, StringLength(50)]
+        public virtual string Key
+        {
+            get { return _key = _key ?? GenerateKey(); }
+            protected set { _key = value; }
+        }
+        private string _key;
+
+
+        protected virtual string GenerateKey()
+        {
+            return KeyGenerator.Generate();
+        }
 
         public override bool Equals(object obj)
         {
@@ -43,12 +66,26 @@ namespace shenxl.qingdoc.Common.Entities
             if (ReferenceEquals(this, other)) return true;
             if (other.GetType() != GetType()) return false;
 
+            if (default(TId).Equals(Id) || default(TId).Equals(other.Id))
+                return Equals(other._key, _key);
+
             return other.Id.Equals(Id);
         }
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            unchecked
+            {
+                if (default(TId).Equals(Id))
+                    return Key.GetHashCode() * 397;
+
+                return Id.GetHashCode();
+            }
+        }
+
+        public override string ToString()
+        {
+            return Key;
         }
 
         public static bool operator ==(Entity<TId> left, Entity<TId> right)
@@ -59,6 +96,21 @@ namespace shenxl.qingdoc.Common.Entities
         public static bool operator !=(Entity<TId> left, Entity<TId> right)
         {
             return !Equals(left, right);
+        }
+
+
+        public static class KeyGenerator
+        {
+            public static string Generate()
+            {
+                return Generate(Guid.NewGuid().ToString("D").Substring(24));
+            }
+
+            public static string Generate(string input)
+            {
+                Contract.Requires(!string.IsNullOrWhiteSpace(input));
+                return HttpUtility.UrlEncode(input.Replace(" ", "_").Replace("-", "_").Replace("&", "and"));
+            }
         }
     }
 }

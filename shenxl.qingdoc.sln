@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shenxl.qingdoc.Website", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shenxl.qingdoc.Common", "shenxl.qingdoc.Common\shenxl.qingdoc.Common.csproj", "{508A0992-DA4C-4619-BBCC-2BFC30DBC6E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shenxl.qingdoc.MCV", "shenxl.qingdoc.MCV\shenxl.qingdoc.MCV.csproj", "{FE6FF9AE-9636-4C9D-8C3D-EDC49A834194}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shenxl.qingdoc.Mvc", "shenxl.qingdoc.MCV\shenxl.qingdoc.Mvc.csproj", "{FE6FF9AE-9636-4C9D-8C3D-EDC49A834194}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shenxl.qingdoc.Document", "shenxl.qingdoc.Document\shenxl.qingdoc.Document.csproj", "{C10662A8-2B14-469C-B4B6-F679AF636628}"
 EndProject

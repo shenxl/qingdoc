@@ -33,6 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="Entities\Annotations\UniqueAttribute.cs" />
     <Compile Include="Entities\DocumentEntity.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\HtmlParseContext.cs" />
