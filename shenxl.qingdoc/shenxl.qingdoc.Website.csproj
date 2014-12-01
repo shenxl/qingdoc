@@ -237,12 +237,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="DLL\Aspose.Cells.dll" />
-    <Content Include="DLL\Aspose.Cells.xml" />
-    <Content Include="DLL\Aspose.Slides.dll" />
-    <Content Include="DLL\Aspose.Slides.xml" />
-    <Content Include="DLL\Aspose.Words.dll" />
-    <Content Include="DLL\Aspose.Words.xml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\dropzone\Style\stylus\basic.styl" />
