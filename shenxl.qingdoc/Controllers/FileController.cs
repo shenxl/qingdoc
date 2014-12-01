@@ -1,4 +1,5 @@
-﻿using shenxl.qingdoc.Common.Entities;
+﻿using shenxl.qingdoc.Common.DataAccess;
+using shenxl.qingdoc.Common.Entities;
 using shenxl.qingdoc.Document;
 using shenxl.qingdoc.Document.Factory;
 using shenxl.qingdoc.Document.Util;
@@ -17,6 +18,12 @@ namespace shenxl.qingdoc.Controllers
     {
         //
         // GET: /File/
+        private readonly Repository _repository;
+
+        public FileController()
+        {
+            _repository = new Repository();
+        }
 
         public ActionResult Index()
         {
@@ -29,23 +36,18 @@ namespace shenxl.qingdoc.Controllers
         }
         
         [MultipleResponseFormats]
-        public ActionResult Show()
+        public ActionResult Show(string id)
         {
-            var file = ConfigurationManager.AppSettings["doc"];
-            var format = "." + file.Split('.')[1];
-            DocumentEntity doc = new DocumentEntity();
-
+            DocumentEntity doc = _repository.Single<DocumentEntity>(id);
             switch (doc.Type)
             {
                 case DocumentType.Word:
-                    return View("_ShowWord");
+                    return View("_ShowWord", new { id = id });
                 case DocumentType.Excel:
-                    return View("_ShowExcel");
+                    return View("_ShowExcel",new { id = id });
                 default:
                     return View();
             }
-
-
         }
         [HttpPost]
         public ActionResult FileUpload()
@@ -59,9 +61,9 @@ namespace shenxl.qingdoc.Controllers
             {
                 DateTime dt = DateTime.Now;
                 var time = DateTime.Now.ToString("yyyy/MMdd");
-                var path = String.Format("~/File/Upload/{0}/{1}", time, doc.Id);
-                
-                doc.ResourcesPath = Server.MapPath(path);
+                doc.VirtualResourcesPath = String.Format("~/File/Upload/{0}/{1}", time, doc.Key);
+                doc.ResourcesPath = Server.MapPath(doc.VirtualResourcesPath);
+
                 if (!Directory.Exists(doc.ResourcesPath))
                     Directory.CreateDirectory(doc.ResourcesPath);
 
@@ -72,11 +74,11 @@ namespace shenxl.qingdoc.Controllers
                     doc.FileName = file.FileName;
                     doc.FileExtension = Path.GetExtension(file.FileName);
                     doc.FilePath = Path.Combine(doc.ResourcesPath, doc.FileName);
-                    doc.FileMD5 = FileUtils.GetMD5HashFromFile(doc.FilePath);
                     file.SaveAs(doc.FilePath);
+                    doc.FileMD5 = FileUtils.GetMD5HashFromFile(doc.FilePath);
                     doc.UploadTime = dt;
                 }
-
+                _repository.Add<DocumentEntity>(doc);
             }
             catch (Exception ex)
             {
@@ -87,20 +89,18 @@ namespace shenxl.qingdoc.Controllers
             return Json(new
             {
                 Result = isSavedSuccessfully,
+                Key = doc.Key,
                 Message = msg
             });
         }
 
-        //public ActionResult ReadAspose()
-        //{
-        //    string currentPath = System.Web.HttpContext.Current.Request.PhysicalApplicationPath;
-        //    var filepath = currentPath + ConfigurationManager.AppSettings["doc"];
-        //    //var filepath = currentPath + @"File\test6.doc";
-        //    var outputpath = currentPath + @"File\output\";
-        //    var html = FileConvertHelper.OfficeFile2HtmlAspose(filepath, outputpath);
-
-        //    return Content(html);
-        //}
+        public ActionResult ReadDocument(string id)
+        {
+            DocumentEntity doc = _repository.Single<DocumentEntity>(id);
+            ConvertDocument convertdoc = DocumentFactory.CreateDocument(doc);
+            convertdoc.ConvertToHtml();
+            return Content(doc.HtmlDatas[0].HtmlContent);
+        }
 
         //public ActionResult Read()
         //{

@@ -24,9 +24,12 @@ namespace shenxl.qingdoc.Document
 
         public override void ConvertToHtml()
         {
+            var imagePath = Path.Combine(_docEntity.ResourcesPath, "image");
             Aspose.Words.Document doc = new Aspose.Words.Document(_docEntity.FilePath);
             HtmlSaveOptions saveOptions = new HtmlSaveOptions();
-            saveOptions.ImagesFolder = Path.Combine(_docEntity.ResourcesPath,"image");
+            if (!Directory.Exists(imagePath))
+                Directory.CreateDirectory(imagePath);
+            saveOptions.ImagesFolder = imagePath;
             saveOptions.ImageSavingCallback = new HandleImageSaving();
             saveOptions.TableWidthOutputMode = HtmlElementSizeOutputMode.RelativeOnly;
             saveOptions.CssStyleSheetType = CssStyleSheetType.Inline;
@@ -37,7 +40,7 @@ namespace shenxl.qingdoc.Document
                     doc.Save(htmlStream, saveOptions);
                     HtmlParseContext htmldata = new HtmlParseContext();
                     htmldata.HtmlContent = Encoding.UTF8.GetString(htmlStream.ToArray());
-                    _docEntity.HtmlData.Add(htmldata);
+                    _docEntity.HtmlDatas.Add(htmldata);
                 }
                 catch (Exception e)
                 {

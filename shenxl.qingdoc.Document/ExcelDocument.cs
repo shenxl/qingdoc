@@ -31,7 +31,7 @@ namespace shenxl.qingdoc.Document
                         xls.Save(htmlStream, htmlsaveoption);
                         HtmlParseContext htmldata = new HtmlParseContext();
                         htmldata.HtmlContent = Encoding.UTF8.GetString(htmlStream.ToArray());
-                        _docEntity.HtmlData.Add(htmldata);
+                        _docEntity.HtmlDatas.Add(htmldata);
                     }
                     catch (Exception e)
                     {

@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\DbContext.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="DataAccess\Repository.cs" />
     <Compile Include="Entities\Annotations\UniqueAttribute.cs" />
     <Compile Include="Entities\DocumentEntity.cs" />
     <Compile Include="Entities\Entity.cs" />

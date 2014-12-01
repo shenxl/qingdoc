@@ -1,12 +1,8 @@
-/**
- * Copyright 2013 I Doc View
- * @author Godwin <godwin668@gmail.com>
- */
 
 $(document).ready(function() {
 	
     $.ajax({
-        url: "/File/ReadAspose/",
+        url: "/File/ReadDocument/" + window.location.pathname.split("/")[3],
         success: function (data) {
             clearProgress();
             $('.tab-content').append(data);

@@ -14,6 +14,7 @@ namespace shenxl.qingdoc.Common.Entities
         public String FilePath { get; set; }
         public String FileName { get; set; }
         public String FileMD5 { get; set; }
+        public String VirtualResourcesPath { get; set; }
         public String ResourcesPath { get; set; }
         public String FileExtension { get; set; }
         
@@ -47,8 +48,13 @@ namespace shenxl.qingdoc.Common.Entities
             }
         }
 
-        public List<HtmlParseContext> HtmlData { get; set; }
-        
+        public List<HtmlParseContext> HtmlDatas { get; set; }
+
+
+        public  DocumentEntity()
+        {
+            HtmlDatas = new List<HtmlParseContext>();
+        }
     }
 
 
