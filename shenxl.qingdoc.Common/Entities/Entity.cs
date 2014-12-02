@@ -10,10 +10,13 @@ using System.Web;
 
 namespace shenxl.qingdoc.Common.Entities
 {
+    /// <summary>
+    /// 实体接口
+    /// </summary>
     public interface IEntity
     {
         /// <summary>
-        /// The entity's unique (and URL-safe) public identifier
+        /// URL安全主键
         /// </summary>
         /// <remarks>
         /// This is the identifier that should be exposed via the web, etc.

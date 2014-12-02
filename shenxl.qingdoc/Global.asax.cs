@@ -22,6 +22,8 @@ namespace shenxl.qingdoc
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            UnityConfig.RegisterIOCContainer();
             AuthConfig.RegisterAuth();
         }
     }

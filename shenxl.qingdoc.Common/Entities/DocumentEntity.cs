@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace shenxl.qingdoc.Common.Entities
 {
+    /// <summary>
+    /// 继承Entity实体
+    /// </summary>
     public class DocumentEntity : Entity<Guid>
     {
         public Guid Id { get; set; }
@@ -48,6 +51,9 @@ namespace shenxl.qingdoc.Common.Entities
             }
         }
 
+        /// <summary>
+        /// HTML解析实体，待扩展
+        /// </summary>
         public List<HtmlParseContext> HtmlDatas { get; set; }
 
 
@@ -58,7 +64,9 @@ namespace shenxl.qingdoc.Common.Entities
     }
 
 
-
+    /// <summary>
+    /// 文档类型的实体类
+    /// </summary>
     public enum DocumentType { 
         Word = 0,
         Excel = 1,

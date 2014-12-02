@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace shenxl.qingdoc.Common.DataAccess
 {
-    public class Repository : IRepository
+    public class DebugRepository : IRepository
     {
         private readonly DbContext _context;
-        private readonly bool _isSharedContext;
 
-        public Repository()
+        public DebugRepository()
         {
             _context = DbContext.CreateDataContent();
         }

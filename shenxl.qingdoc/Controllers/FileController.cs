@@ -18,11 +18,11 @@ namespace shenxl.qingdoc.Controllers
     {
         //
         // GET: /File/
-        private readonly Repository _repository;
+        private readonly IRepository _repository;
 
-        public FileController()
+        public FileController(IRepository repository)
         {
-            _repository = new Repository();
+            _repository = repository;
         }
 
         public ActionResult Index()
