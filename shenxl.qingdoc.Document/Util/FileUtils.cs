@@ -9,6 +9,11 @@ namespace shenxl.qingdoc.Document.Util
 {
     public class FileUtils
     {
+        /// <summary>
+        /// 根据文件路径获取文件的MD5值
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public static string GetMD5HashFromFile(string fileName)
         {
             try
@@ -31,6 +36,11 @@ namespace shenxl.qingdoc.Document.Util
             }
         }
 
+        /// <summary>
+        /// 根据文件流获取文件的MD5值
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public static string GetMD5HashFromFileStream(Stream fileStream)
         {
             try
@@ -48,6 +58,23 @@ namespace shenxl.qingdoc.Document.Util
             catch (Exception ex)
             {
                 throw new Exception("GetMD5HashFromFile() fail,error:" + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 生成样式文件
+        /// </summary>
+        /// <param name="style"></param>
+        /// <param name="outpath"></param>
+        public static void WriteStyleFile(string style, string outpath)
+        {
+            using (FileStream stream = new FileStream(outpath, FileMode.Create))
+            {
+                //获取StreamWriter
+                using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
+                {
+                    writer.Write(style);
+                }
             }
         }
     }

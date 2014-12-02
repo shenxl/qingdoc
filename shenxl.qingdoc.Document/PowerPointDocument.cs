@@ -20,7 +20,7 @@ namespace shenxl.qingdoc.Document
             throw new NotImplementedException();
         }
 
-        public override JsonDocEntity ConvertHtmlToEntity()
+        public override JsonDocEntity ParseHtmlToEntity()
         {
             throw new NotImplementedException();
         }

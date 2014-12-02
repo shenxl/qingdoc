@@ -1,9 +1,7 @@
 ﻿@{
-    ViewBag.Title = "_ShowExcel";
     Layout = "~/Views/Shared/_FileView.cshtml";
 }
 
-<h2>_ShowExcel</h2>
 <div class="loading-mask" style="display: none;">
       <div class="loading-zone">
         <div class="text">正在载入...0%</div>
@@ -40,7 +38,8 @@
       <div class="row-fluid">
         <div class="span12" style="width: auto; padding-right: 20px">
           <!-- Excel tab content start -->
-          <div class="tab-content" contenteditable="true">
+          <div class="tab-content">
+          @*<div class="tab-content" contenteditable="true">*@
           	<!-- EXCEL CONENT HERE -->
           </div><!-- Excel tab content end -->
         </div><!--/span-->

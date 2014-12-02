@@ -14,7 +14,7 @@ namespace shenxl.qingdoc.Common.Entities
         /// <summary>
         /// 记录解析后的原始HTml内容（暂时属性，视后续逻辑替代）
         /// </summary>
-        public string HtmlContent { get; set; }
+        public List<string> HtmlContent { get; set; }
         /// <summary>
         /// 记录解析为HTML后文档的Style文件位置
         /// </summary>
@@ -32,6 +32,7 @@ namespace shenxl.qingdoc.Common.Entities
         public HtmlParseContext()
         {
             ParseContentList = new List<HtmlParseData>();
+            HtmlContent = new List<string>();
         }
     }
 }

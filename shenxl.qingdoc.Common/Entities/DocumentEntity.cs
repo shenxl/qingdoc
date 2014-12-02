@@ -26,7 +26,7 @@ namespace shenxl.qingdoc.Common.Entities
         /// </summary>
         public DocumentEntity()
         {
-            HtmlDatas = new HtmlParseContext();
+            HtmlData = new HtmlParseContext();
         }
 
         public String ImageFolder
@@ -66,7 +66,7 @@ namespace shenxl.qingdoc.Common.Entities
         /// <summary>
         /// HTML解析实体
         /// </summary>
-        public HtmlParseContext HtmlDatas { get; set; }
+        public HtmlParseContext HtmlData { get; set; }
         
     }
 

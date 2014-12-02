@@ -5,7 +5,7 @@ $(document).ready(function() {
         url: "/File/ReadDocument/" + window.location.pathname.split("/")[3],
         success: function (data) {
             var code = data.code;
-            if (code = "success")
+            if (code == "success")
             {
                 var key = data.key;
                 var pagecount = data.pagecount;

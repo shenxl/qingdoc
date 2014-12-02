@@ -24,9 +24,15 @@ namespace shenxl.qingdoc.Document
         {
             _docEntity = docEntity;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public abstract void ConvertToHtml();
-        public abstract JsonDocEntity ConvertHtmlToEntity();
+        /// <summary>
+        /// 解析文档内容为前端显示的Json实体
+        /// </summary>
+        /// <returns></returns>
+        public abstract JsonDocEntity ParseHtmlToEntity();
 
     }
 }

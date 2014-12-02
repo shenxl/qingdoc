@@ -15,7 +15,7 @@ namespace shenxl.qingdoc.Common.Entities
         public string Key { get; set; }
         public List<HtmlParseData> htmlContent { get; set; }
         public string code { get; set; }
-
+        public string styleUrl { get; set; }
         /// <summary>
         /// 将构造的Document转换为Json实体，方便后续的Web传输。
         /// </summary>
@@ -27,11 +27,12 @@ namespace shenxl.qingdoc.Common.Entities
             return new JsonDocEntity()
             {
                 FileName = entity.FileName,
-                PageCount = entity.HtmlDatas.PageNumber,
+                PageCount = entity.HtmlData.PageNumber,
                 FileExtension = entity.FileExtension,
                 FileMD5 = entity.FileMD5,
+                styleUrl = entity.HtmlData.StyleUrl,
                 Key = entity.Key,
-                htmlContent = entity.HtmlDatas.ParseContentList,
+                htmlContent = entity.HtmlData.ParseContentList,
                 code = "success"
             };
         }

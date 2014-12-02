@@ -14,7 +14,7 @@ namespace shenxl.qingdoc.Document
     public class WordDocument : ConvertDocument
     {
         protected static readonly Regex DIV_REGEX = new Regex(@"(?'div'<div\s*(.|\n)*?</div>)", REGEX_OPTIONS);
-        protected static readonly Regex DIV_IMAGE_REGEX = new Regex(@"<img\s*src=""(?'src'(.)*?)""\s*width=(.|\n)*?>", REGEX_OPTIONS);
+        protected static readonly Regex DIV_IMAGE_REGEX = new Regex(@"<img(.|\n)*?src=""(?'src'(.)*?)""", REGEX_OPTIONS);
         
         public WordDocument(DocumentEntity docentity)
             : base(docentity)
@@ -27,7 +27,7 @@ namespace shenxl.qingdoc.Document
             var imagePath = Path.Combine(_docEntity.ResourcesPath, _docEntity.ImageFolder);
             Aspose.Words.Document doc = new Aspose.Words.Document(_docEntity.FilePath);
             //记录解析前的页面数
-            _docEntity.HtmlDatas.PageNumber = doc.PageCount;
+            _docEntity.HtmlData.PageNumber = doc.PageCount;
             HtmlSaveOptions saveOptions = new HtmlSaveOptions();
             if (!Directory.Exists(imagePath))
                 Directory.CreateDirectory(imagePath);
@@ -41,7 +41,8 @@ namespace shenxl.qingdoc.Document
                 {
                     doc.Save(htmlStream, saveOptions);
                     //记录解析实体
-                    _docEntity.HtmlDatas.HtmlContent = Encoding.UTF8.GetString(htmlStream.ToArray());
+                    //HTMLContent 表示原始的HTML内容，此处设置为数组主要为了配合表格多Sheet页的情况，待重构
+                    _docEntity.HtmlData.HtmlContent.Add(Encoding.UTF8.GetString(htmlStream.ToArray()));
                 }
                 catch (Exception e)
                 {
@@ -51,10 +52,14 @@ namespace shenxl.qingdoc.Document
         }
 
 
-        public override JsonDocEntity ConvertHtmlToEntity()
+        public override JsonDocEntity ParseHtmlToEntity()
         {
-            var htmldata = _docEntity.HtmlDatas.HtmlContent;
-            _docEntity.HtmlDatas.ParseContentList = new List<HtmlParseData>();
+            var htmldata = _docEntity.HtmlData.HtmlContent[0];
+            ///清空当前对象存储HTML解析格式的属性
+            ///如果已经解析过的文档就不需要重复处理了
+            ///此动作后续需要配合存储一起重构
+            _docEntity.HtmlData.ParseContentList = new List<HtmlParseData>();
+
             MatchCollection divmatches = DIV_REGEX.Matches(htmldata);
             var count = 1;
             foreach (Match divmatcher in divmatches)
@@ -64,6 +69,7 @@ namespace shenxl.qingdoc.Document
 
                 var div = divmatcher.Groups["div"].Value;
                 var imagematchers = DIV_IMAGE_REGEX.Matches(div);
+                //根据VirtualResourcesPath属性替换当前页面的Image地址
                 foreach (Match iamgematcher in imagematchers)
                 {
                     var src = iamgematcher.Groups["src"].Value;
@@ -72,10 +78,11 @@ namespace shenxl.qingdoc.Document
                     div = div.Replace(src, replace);
                 }
                 divcontent.content = div;
-                _docEntity.HtmlDatas.ParseContentList.Add(divcontent);
+                _docEntity.HtmlData.ParseContentList.Add(divcontent);
 
                 count++;
             }
+            _docEntity.ConvertCompleteTime = DateTime.Now;
             return JsonDocEntity.Convert(_docEntity);
         }
     }

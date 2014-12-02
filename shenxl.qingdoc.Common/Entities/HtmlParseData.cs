@@ -25,7 +25,7 @@ namespace shenxl.qingdoc.Common.Entities
         /// <summary>
         /// 提供给表格的worksheet名称
         /// </summary>
-        public string Name { get; set; }
+        public string title { get; set; }
 
 
     }

@@ -117,7 +117,7 @@ namespace shenxl.qingdoc.Controllers
             ///未考虑到的情况： 如果文档已经解析完毕，是否需要重新解析
             ///留下与后续数据存放的逻辑一同实现
             convertdoc.ConvertToHtml();
-            var parseEntity = convertdoc.ConvertHtmlToEntity();
+            var parseEntity = convertdoc.ParseHtmlToEntity();
             if (parseEntity != null)
                 return Json(parseEntity, JsonRequestBehavior.AllowGet);
             return null;
