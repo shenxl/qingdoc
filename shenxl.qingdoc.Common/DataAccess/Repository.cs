@@ -1,6 +1,8 @@
-﻿using System;
+﻿using shenxl.qingdoc.Common.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,7 +29,7 @@ namespace shenxl.qingdoc.Common.DataAccess
 
         public IQueryable<TModel> All<TModel>(params string[] includePaths) where TModel : class, Entities.IEntity
         {
-            throw new NotImplementedException();
+            return _context.GetALL() as IQueryable<TModel>;
         }
 
         public void Delete<TModel>(object key) where TModel : class, Entities.IEntity
@@ -53,14 +55,15 @@ namespace shenxl.qingdoc.Common.DataAccess
         public TModel Single<TModel>(System.Linq.Expressions.Expression<Func<TModel, bool>> predicate, params string[] includePaths) where TModel : class, Entities.IEntity
         {
             throw new NotImplementedException();
-        }
+        } 
 
-        public IQueryable<TModel> Query<TModel>(System.Linq.Expressions.Expression<Func<TModel, bool>> predicate, params string[] includePaths) where TModel : class, Entities.IEntity
+        public void Dispose()
         {
             throw new NotImplementedException();
         }
 
-        public void Dispose()
+
+        public IQueryable<TModel> Query<TModel>(Expression<Func<TModel, bool>> predicate, params string[] includePaths) where TModel : class, IEntity
         {
             throw new NotImplementedException();
         }

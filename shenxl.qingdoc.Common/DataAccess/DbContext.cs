@@ -31,5 +31,10 @@ namespace shenxl.qingdoc.Common.DataAccess
         {
             return _entityList.Where(item => item.Key.Equals(id)).SingleOrDefault();
         }
+
+        public IQueryable<IEntity> GetALL()
+        {
+            return _entityList.Where<IEntity>(item => item.Key != null).AsQueryable();
+        }
     }
 }

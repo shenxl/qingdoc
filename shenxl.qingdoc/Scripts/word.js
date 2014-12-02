@@ -1,25 +1,34 @@
 
 $(document).ready(function() {
-	
-	/*
-	if ($.browser.msie && $.browser.version <= 8) {
-		// IE 8 or lower
-	} else {
-		if(top !== window) {
-			top.location.href = window.location.href;
-		}
-	}
-	*/
+	//文字分页与延时加载逻辑后续实现
     $.ajax({
         url: "/File/ReadDocument/" + window.location.pathname.split("/")[3],
         success: function (data) {
-            clearProgress();
-            $(".span12 .word-page .word-content").append(data);
+            var code = data.code;
+            if (code = "success")
+            {
+                var key = data.key;
+                var pagecount = data.pagecount;
+                var pages = data.htmlContent;
+                if (pagecount < 3) {
+                    $('.bottom-paging-progress').hide();
+                    $('.paging-bottom-all').hide();
+                }
+                $('.navbar-inner .container-fluid .btn-navbar').after('<a class="brand" style="text-decoration: none;" href="/doc/download/' + key + '" title="' + data.FileName + '">' + data.FileName + '</a>');
+                clearProgress();
+                for (i = 0; i < pages.length; i++) {
+                    var page = pages[i];
+                    $('.span12 .word-page .word-content').append(page.content);
+                    //$('.span12').append('<div class="word-page"><div class="word-content">' + page.content + '</div></div>');
+                }
+                //$(".span12 .word-page .word-content").append(data);
+            }
+
         }
     });
 
 	//$.get('/view/' + uuid + '.json?start=1&size=5', {session:sessionId}, function(data, status) {
-	//	var code = data.code;
+	
 	//	if (1 == code) {
 	//		var rid = data.rid;
 	//		var uuid = data.uuid;

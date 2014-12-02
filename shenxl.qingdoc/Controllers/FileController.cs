@@ -54,75 +54,74 @@ namespace shenxl.qingdoc.Controllers
         {
             bool isSavedSuccessfully = true;
             string msg = "";
-
-            DocumentEntity doc = new DocumentEntity();
-            doc.Id = Guid.NewGuid();
+            DocumentEntity doc = null;
             try
             {
                 DateTime dt = DateTime.Now;
-                var time = DateTime.Now.ToString("yyyy/MMdd");
-                doc.VirtualResourcesPath = String.Format("~/File/Upload/{0}/{1}", time, doc.Key);
-                doc.ResourcesPath = Server.MapPath(doc.VirtualResourcesPath);
-
-                if (!Directory.Exists(doc.ResourcesPath))
-                    Directory.CreateDirectory(doc.ResourcesPath);
-
                 HttpPostedFileBase file = Request.Files[0];
-
                 if (file != null && file.ContentLength > 0)
                 {
+                    ///通过Md5值判断,如果文件已经上传，则直接返回Key值。
+                    ///留下与后续数据存放的逻辑一同实现
+                    var md5  = FileUtils.GetMD5HashFromFileStream(file.InputStream);
+                    var entitycount = _repository.All<DocumentEntity>();
+                    if (entitycount != null)
+                    {
+                        doc = entitycount.
+                            Where<DocumentEntity>(item => item.FileMD5 == md5).SingleOrDefault();
+                        if (null != doc)
+                        {
+                            return Json(new
+                            {
+                                Result = isSavedSuccessfully,
+                                Key = doc.Key,
+                                Message = msg
+                            });
+                        }
+                    }
+                    //如果文件未上传，则构造DocumentEntity实体，上传并保存
+                    doc = new DocumentEntity();
+                    string time = DateTime.Now.ToString("yyyy/MMdd");
+                    doc.VirtualResourcesPath = String.Format("/File/Upload/{0}/{1}", time, doc.Key);
+                    doc.ResourcesPath = Server.MapPath(doc.VirtualResourcesPath);
+
+                    if (!Directory.Exists(doc.ResourcesPath))
+                        Directory.CreateDirectory(doc.ResourcesPath);
                     doc.FileName = file.FileName;
                     doc.FileExtension = Path.GetExtension(file.FileName);
                     doc.FilePath = Path.Combine(doc.ResourcesPath, doc.FileName);
+                    doc.FileMD5 = md5;
                     file.SaveAs(doc.FilePath);
-                    doc.FileMD5 = FileUtils.GetMD5HashFromFile(doc.FilePath);
                     doc.UploadTime = dt;
+                    _repository.Add<DocumentEntity>(doc);
                 }
-                _repository.Add<DocumentEntity>(doc);
             }
             catch (Exception ex)
             {
                 msg = ex.Message;
                 isSavedSuccessfully = false;
             }
-
             return Json(new
             {
                 Result = isSavedSuccessfully,
                 Key = doc.Key,
                 Message = msg
             });
+
         }
 
         public ActionResult ReadDocument(string id)
         {
             DocumentEntity doc = _repository.Single<DocumentEntity>(id);
             ConvertDocument convertdoc = DocumentFactory.CreateDocument(doc);
+            ///未考虑到的情况： 如果文档已经解析完毕，是否需要重新解析
+            ///留下与后续数据存放的逻辑一同实现
             convertdoc.ConvertToHtml();
-            return Content(doc.HtmlDatas[0].HtmlContent);
+            var parseEntity = convertdoc.ConvertHtmlToEntity();
+            if (parseEntity != null)
+                return Json(parseEntity, JsonRequestBehavior.AllowGet);
+            return null;
         }
-
-        //public ActionResult Read()
-        //{
-        //    DocumentEntity doc = new DocumentEntity();
-        //    ConvertDocument convertdoc = DocumentFactory.CreateDocument(doc);
-        //    string currentPath = System.Web.HttpContext.Current.Request.PhysicalApplicationPath;
-        //    var filepath = currentPath + ConfigurationManager.AppSettings["doc"];
-        //    var outputpath = currentPath + @"File\output\";
-        //    FileConvertHelper.OfficeFile2Html(filepath, outputpath);
-        //    var outpath = Path.Combine(outputpath, "output.html");
-        //    var html = FileConvertHelper.ReadFile(outpath);
-        //    HtmlMatcher matcher = new HtmlMatcher();
-        //    var test1 = matcher.GetDiv(html);
-        //    var test2 = matcher.GetStyle(html);
-        //    var content = "";
-        //    foreach (var item in test1)
-        //    {
-        //        content += item;
-        //    }
-        //    System.IO.File.Delete(outpath);
-        //    return Content(content);
-        //}
 
     }
 }

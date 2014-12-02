@@ -20,8 +20,21 @@ namespace shenxl.qingdoc.Common.Entities
         public String VirtualResourcesPath { get; set; }
         public String ResourcesPath { get; set; }
         public String FileExtension { get; set; }
-        
 
+        /// <summary>
+        /// 构造函数，保证引用属性初始化
+        /// </summary>
+        public DocumentEntity()
+        {
+            HtmlDatas = new HtmlParseContext();
+        }
+
+        public String ImageFolder
+        {
+            get {
+                return "Image";
+            }
+        }
         public DateTime UploadTime { get; set; }
         public DateTime ConvertCompleteTime { get; set; }
         /// <summary>
@@ -50,17 +63,11 @@ namespace shenxl.qingdoc.Common.Entities
                 return DocumentType.UnKnown;
             }
         }
-
         /// <summary>
-        /// HTML解析实体，待扩展
+        /// HTML解析实体
         /// </summary>
-        public List<HtmlParseContext> HtmlDatas { get; set; }
-
-
-        public  DocumentEntity()
-        {
-            HtmlDatas = new List<HtmlParseContext>();
-        }
+        public HtmlParseContext HtmlDatas { get; set; }
+        
     }
 
 
@@ -68,9 +75,9 @@ namespace shenxl.qingdoc.Common.Entities
     /// 文档类型的实体类
     /// </summary>
     public enum DocumentType { 
-        Word = 0,
-        Excel = 1,
+        Word = 1,
+        Excel = 3,
         PowerPoint = 2,
-        UnKnown = -1,
+        UnKnown = 255,
     }
 }

@@ -28,10 +28,11 @@ namespace shenxl.qingdoc.Document
                 {
                     try
                     {
+                        xls.Worksheets.ActiveSheetIndex = item.Index;
                         xls.Save(htmlStream, htmlsaveoption);
                         HtmlParseContext htmldata = new HtmlParseContext();
                         htmldata.HtmlContent = Encoding.UTF8.GetString(htmlStream.ToArray());
-                        _docEntity.HtmlDatas.Add(htmldata);
+                        //_docEntity.HtmlDatas.Add(htmldata);
                     }
                     catch (Exception e)
                     {
@@ -41,7 +42,7 @@ namespace shenxl.qingdoc.Document
             }
         }
 
-        public override DocumentEntity ConvertHtmlToEntity()
+        public override JsonDocEntity ConvertHtmlToEntity()
         {
             throw new NotImplementedException();
         }

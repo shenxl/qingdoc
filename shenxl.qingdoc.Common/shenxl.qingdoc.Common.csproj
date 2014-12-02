@@ -47,7 +47,9 @@
     <Compile Include="Entities\Annotations\UniqueAttribute.cs" />
     <Compile Include="Entities\DocumentEntity.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\HtmlParseData.cs" />
     <Compile Include="Entities\HtmlParseContext.cs" />
+    <Compile Include="Entities\JsonDocEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
