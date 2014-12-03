@@ -19,6 +19,12 @@ $(document).ready(function() {
                 for (i = 0; i < pages.length; i++) {
                     var page = pages[i];
                     $('.span12 .word-page .word-content').append(page.content);
+                    $('.span12 .word-page .word-content').find("p").attr("contenteditable",true);
+                    CKEDITOR.inlineAll();
+                    //disableEditing();
+                    //enableEditing();
+                    //CKEDITOR.disableAutoInline = true;
+                    //CKEDITOR.inline('edit-content');
                     //$('.span12').append('<div class="word-page"><div class="word-content">' + page.content + '</div></div>');
                 }
                 if (document.createStyleSheet) {
@@ -34,3 +40,14 @@ $(document).ready(function() {
         }
     });
 });
+
+function enableEditing() {
+    if (!CKEDITOR.instances.introduction) {
+        CKEDITOR.inlineAll();
+    }
+}
+
+function disableEditing() {
+    if (CKEDITOR.instances.introduction)
+        CKEDITOR.instances.introduction.destroy();
+}

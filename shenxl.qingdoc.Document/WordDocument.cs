@@ -46,7 +46,7 @@ namespace shenxl.qingdoc.Document
             saveOptions.ImagesFolder = imagePath;
             saveOptions.ImageSavingCallback = new HandleImageSaving();
             saveOptions.TableWidthOutputMode = HtmlElementSizeOutputMode.RelativeOnly;
-            saveOptions.CssStyleSheetType = CssStyleSheetType.Embedded;
+            saveOptions.CssStyleSheetType = CssStyleSheetType.Inline;
             using (MemoryStream htmlStream = new MemoryStream())
             {
                 try

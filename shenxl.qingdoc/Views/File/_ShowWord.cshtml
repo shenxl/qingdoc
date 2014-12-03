@@ -1,6 +1,9 @@
 ﻿@{
     Layout = "~/Views/Shared/_FileView.cshtml";
 }
+<script src="~/Scripts/ckeditor/ckeditor.js" type="text/javascript">
+</script>
+
 <div class="loading-mask" style="display: none;">
     <div class="loading-zone">
         <div class="text">正在载入...100%</div>
@@ -55,7 +58,34 @@
 
     </div>
     <!--/.fluid-container-->
-   
-    <script src="~/Scripts/word.js" type="text/javascript"></script> 
+</div>
 
-    
+<script src="~/Scripts/word.js" type="text/javascript"></script>
+@*<script>
+    // Sample: Massive Inline Editing
+
+    // This code is generally not necessary, but it is here to demonstrate
+    // how to customize specific editor instances on the fly. This fits this
+    // demo well because some editable elements (like headers) may
+    // require a smaller number of features.
+
+    // The "instanceCreated" event is fired for every editor instance created.
+    CKEDITOR.on('instanceCreated', function (event) {
+        var editor = event.editor,
+				element = editor.element;
+
+        // Customize editors for headers and tag list.
+        // These editors do not need features like smileys, templates, iframes etc.
+        // Customize the editor configuration on "configLoaded" event,
+        // which is fired after the configuration file loading and
+        // execution. This makes it possible to change the
+        // configuration before the editor initialization takes place.
+        editor.on('configLoaded', function () {
+            // Rearrange the toolbar layout.
+            editor.config.toolbarGroups = [
+                { name: 'editing', groups: ['basicstyles', 'links'] },
+                { name: 'undo' }
+            ];
+        });
+    });
+</script>*@
