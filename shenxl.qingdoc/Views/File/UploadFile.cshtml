@@ -1,21 +1,15 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/_FileView.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>UploadFile</title>
-    <link href="~/Content/dropzone/Style/dropzone.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-1.7.1.js"></script>
-    <script src="~/Scripts/dropzone.js"></script>
-    <script>
-        //Dropzone的初始化，myDropzone为form的id
-        Dropzone.options.myDropzone = {
-            //指定上传图片的路径
-            url: "@Url.Action("FileUpload", "File")",
+<meta name="viewport" content="width=device-width" />
+<link href="~/Content/dropzone/Style/dropzone.css" rel="stylesheet" />
+<script src="~/Scripts/dropzone.js"></script>
+<script>
+    //Dropzone的初始化，myDropzone为form的id
+    Dropzone.options.myDropzone = {
+        //指定上传图片的路径
+        url: "@Url.Action("FileUpload", "File")",
             //添加上传取消和删除预览图片的链接，默认不添加
             addRemoveLinks: true,
             //关闭自动上传功能，默认会true会自动上传
@@ -41,19 +35,33 @@
                 });
 
             }
-    };
-    </script>
-</head>
-<body>
-    <div>
-        <!--class="dropzone" 使用dropzone自带的样式 样式在引用的CSS中-->
-        <form action="/"
-            class="dropzone"
-            enctype="multipart/form-data"
-            id="my-dropzone"
-            method="post">
-            @Html.Hidden("hidAlbumId")
+        };
+</script>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- FILE NAME HERE -->
+            <div class="nav-collapse collapse">
+                <ul class="nav excel-tab-title">
+                    <!-- EXCEL TAB TITLE(s) HERE -->
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row-fluid">
+        <form action="/" class="dropzone" enctype="multipart/form-data" id="my-dropzone" method="post">
         </form>
     </div>
-</body>
-</html>
+    <hr>
+    <footer>
+        Powered by: shenxl
+    </footer>
+</div>

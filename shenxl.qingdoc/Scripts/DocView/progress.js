@@ -1,7 +1,4 @@
-/**
- * Copyright 2013 I Doc View
- * @author Godwin <godwin668@gmail.com>
- */
+
 
 // Progress bar
 $('.loading-mask').css("display", "");

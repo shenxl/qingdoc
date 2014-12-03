@@ -8,18 +8,30 @@ using Aspose.Words;
 using Aspose.Words.Saving;
 using System.Text.RegularExpressions;
 using shenxl.qingdoc.Common.Entities;
+using shenxl.qingdoc.Document.Util;
 
 namespace shenxl.qingdoc.Document
 {
-    public class WordDocument : ConvertDocument
+    public class WordDocument : ConvertDocument, IConvert
     {
-        protected static readonly Regex DIV_REGEX = new Regex(@"(?'div'<div\s*(.|\n)*?</div>)", REGEX_OPTIONS);
-        protected static readonly Regex DIV_IMAGE_REGEX = new Regex(@"<img(.|\n)*?src=""(?'src'(.)*?)""", REGEX_OPTIONS);
-        
+        protected static readonly Regex DIV_REGEX 
+                = new Regex(@"(?'div'<div\s*(.|\n)*?</div>)", REGEX_OPTIONS);
+
+        protected static readonly Regex DIV_IMAGE_REGEX 
+                = new Regex(@"<img(.|\n)*?src=""(?'src'(.)*?)""", REGEX_OPTIONS);
+
+        protected static readonly Regex STYLE_REGEX
+               = new Regex(@"(?'style'(?<=<style\s*type=""text/css"">)\s*(.|\n)*?(?=</style>))", REGEX_OPTIONS);
+
         public WordDocument(DocumentEntity docentity)
             : base(docentity)
         {
 
+        }
+
+        public void Convert2HTml(IEntity entity)
+        {
+            throw new NotImplementedException();
         }
 
         public override void ConvertToHtml()
@@ -34,7 +46,7 @@ namespace shenxl.qingdoc.Document
             saveOptions.ImagesFolder = imagePath;
             saveOptions.ImageSavingCallback = new HandleImageSaving();
             saveOptions.TableWidthOutputMode = HtmlElementSizeOutputMode.RelativeOnly;
-            saveOptions.CssStyleSheetType = CssStyleSheetType.Inline;
+            saveOptions.CssStyleSheetType = CssStyleSheetType.Embedded;
             using (MemoryStream htmlStream = new MemoryStream())
             {
                 try
@@ -58,6 +70,13 @@ namespace shenxl.qingdoc.Document
             ///清空当前对象存储HTML解析格式的属性
             ///如果已经解析过的文档就不需要重复处理了
             ///此动作后续需要配合存储一起重构
+            if (String.IsNullOrEmpty(_docEntity.HtmlData.StyleUrl))
+            {
+                var style = STYLE_REGEX.Match(htmldata).Groups["style"].Value;
+                FileUtils.WriteStyleFile(style, Path.Combine(_docEntity.ResourcesPath, "wpsStyle.css"));
+                _docEntity.HtmlData.StyleUrl = _docEntity.VirtualResourcesPath + "/" + "wpsStyle.css";
+            }
+
             _docEntity.HtmlData.ParseContentList = new List<HtmlParseData>();
 
             MatchCollection divmatches = DIV_REGEX.Matches(htmldata);
@@ -85,6 +104,8 @@ namespace shenxl.qingdoc.Document
             _docEntity.ConvertCompleteTime = DateTime.Now;
             return JsonDocEntity.Convert(_docEntity);
         }
+
+
     }
 
     public class HandleImageSaving : IImageSavingCallback

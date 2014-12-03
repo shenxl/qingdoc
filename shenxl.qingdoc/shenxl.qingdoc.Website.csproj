@@ -318,7 +318,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\File\Upload.cshtml" />
     <Content Include="Views\File\_ShowWord.cshtml" />
     <Content Include="Views\Shared\_FileView.cshtml" />
     <Content Include="Views\File\_ShowExcel.cshtml" />
@@ -362,9 +361,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>20319</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:11360/</IISUrl>
+          <IISUrl>http://localhost:11370/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

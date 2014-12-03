@@ -54,8 +54,10 @@
     <Compile Include="ExcelDocument.cs" />
     <Compile Include="Factory\DocumentFactory.cs" />
     <Compile Include="ConvertDocument.cs" />
+    <Compile Include="IConvert.cs" />
     <Compile Include="PowerPointDocument.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\MimeUtils.cs" />
     <Compile Include="Util\FileUtils.cs" />
     <Compile Include="WordDocument.cs" />
   </ItemGroup>

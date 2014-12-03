@@ -110,7 +110,7 @@ namespace shenxl.qingdoc.Controllers
 
         }
 
-        public ActionResult ReadDocument(string id)
+        public ActionResult read(string id)
         {
             DocumentEntity doc = _repository.Single<DocumentEntity>(id);
             ConvertDocument convertdoc = DocumentFactory.CreateDocument(doc);
@@ -121,6 +121,12 @@ namespace shenxl.qingdoc.Controllers
             if (parseEntity != null)
                 return Json(parseEntity, JsonRequestBehavior.AllowGet);
             return null;
+        }
+
+        public ActionResult download(string id)
+        {
+            DocumentEntity doc = _repository.Single<DocumentEntity>(id);
+            return File(Path.Combine(doc.VirtualResourcesPath, doc.FileName), MimeUtils.GetMimeMapping(doc.FileExtension), Url.Encode(doc.FileName));
         }
 
     }
