@@ -6,19 +6,19 @@ using System.Text;
 
 namespace shenxl.qingdoc.Common.DataAccess
 {
-    public class DbContext
+    public class DebugDbContext
     {
         public List<IEntity> _entityList { get; set; }
-        private static DbContext _dbContent;
+        private static DebugDbContext _dbContent;
 
-        private DbContext()
+        private DebugDbContext()
         {
             _entityList = new List<IEntity>();     
         }
-        public static DbContext CreateDataContent()
+        public static DebugDbContext CreateDataContent()
         {
             if (_dbContent == null)
-                _dbContent = new DbContext();
+                _dbContent = new DebugDbContext();
             return _dbContent;
         }
 

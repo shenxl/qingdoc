@@ -25,7 +25,7 @@ namespace shenxl.qingdoc.Document
             _docEntity = docEntity;
         }
         /// <summary>
-        /// 
+        /// Doc转换到HTML
         /// </summary>
         public abstract void ConvertToHtml();
         /// <summary>

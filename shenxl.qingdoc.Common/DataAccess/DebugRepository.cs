@@ -10,11 +10,11 @@ namespace shenxl.qingdoc.Common.DataAccess
 {
     public class DebugRepository : IRepository
     {
-        private readonly DbContext _context;
+        private readonly DebugDbContext _context;
 
         public DebugRepository()
         {
-            _context = DbContext.CreateDataContent();
+            _context = DebugDbContext.CreateDataContent();
         }
 
         public void Add<TModel>(TModel instance) where TModel : class, Entities.IEntity

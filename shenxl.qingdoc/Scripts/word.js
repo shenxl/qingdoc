@@ -7,15 +7,15 @@ $(document).ready(function() {
             var code = data.code;
             if (code == "success")
             {
-                var key = data.key;
-                var pagecount = data.pagecount;
+                var key = data.Key;
+                var pagecount = data.PageCount;
                 var pages = data.htmlContent;
                 if (pagecount < 3) {
                     $('.bottom-paging-progress').hide();
                     $('.paging-bottom-all').hide();
                 }
                 $('.navbar-inner .container-fluid .btn-navbar').after('<a class="brand" style="text-decoration: none;" href="/doc/download/' + key + '" title="' + data.FileName + '">' + data.FileName + '</a>');
-                clearProgress();
+                //clearProgress();
                 for (i = 0; i < pages.length; i++) {
                     var page = pages[i];
                     $('.span12 .word-page .word-content').append(page.content);
