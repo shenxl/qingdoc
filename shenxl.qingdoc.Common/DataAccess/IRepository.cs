@@ -13,6 +13,9 @@ namespace shenxl.qingdoc.Common.DataAccess
         void Add<TModel>(TModel instance) where TModel : class, IEntity;
         void Add<TModel>(IEnumerable<TModel> instances) where TModel : class, IEntity;
 
+        void Update<TModel>(TModel instance) where TModel : class, IEntity;
+        void Update<TModel>(TModel instance,string updatename,object updateobj) where TModel : class, IEntity;
+
         IQueryable<TModel> All<TModel>(params string[] includePaths) where TModel : class, IEntity;
 
         void Delete<TModel>(object key) where TModel : class, IEntity;

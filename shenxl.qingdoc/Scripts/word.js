@@ -19,8 +19,8 @@ $(document).ready(function() {
                 for (i = 0; i < pages.length; i++) {
                     var page = pages[i];
                     $('.span12 .word-page .word-content').append(page.content);
-                    $('.span12 .word-page .word-content').find("p").attr("contenteditable",true);
-                    CKEDITOR.inlineAll();
+                    //$('.span12 .word-page .word-content').find("p").attr("contenteditable",true);
+                    //CKEDITOR.inlineAll();
                     //disableEditing();
                     //enableEditing();
                     //CKEDITOR.disableAutoInline = true;

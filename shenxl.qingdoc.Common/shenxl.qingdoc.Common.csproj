@@ -30,8 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -44,15 +51,21 @@
     <Compile Include="DataAccess\DebugDbContext.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\DebugRepository.cs" />
+    <Compile Include="DataAccess\MongoContent.cs" />
+    <Compile Include="DataAccess\MongoDbRepository.cs" />
     <Compile Include="Entities\Annotations\UniqueAttribute.cs" />
     <Compile Include="Entities\DocumentEntity.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\HtmlParseData.cs" />
     <Compile Include="Entities\HtmlParseContext.cs" />
     <Compile Include="Entities\JsonDocEntity.cs" />
+    <Compile Include="Entities\MongoDocument.cs" />
+    <Compile Include="Helpers\MongoHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

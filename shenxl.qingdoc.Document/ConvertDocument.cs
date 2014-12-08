@@ -11,7 +11,7 @@ namespace shenxl.qingdoc.Document
 {
     public abstract class ConvertDocument
     {
-        protected DocumentEntity _docEntity { get; set; }
+        public DocumentEntity _docEntity { get; set; }
 
         /// <summary>
         /// 将转换的HTML解析为Div

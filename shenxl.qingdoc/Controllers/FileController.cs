@@ -116,10 +116,18 @@ namespace shenxl.qingdoc.Controllers
             ConvertDocument convertdoc = DocumentFactory.CreateDocument(doc);
             ///未考虑到的情况： 如果文档已经解析完毕，是否需要重新解析
             ///留下与后续数据存放的逻辑一同实现
-            convertdoc.ConvertToHtml();
+            convertdoc.ConvertToHtml();      
             var parseEntity = convertdoc.ParseHtmlToEntity();
             if (parseEntity != null)
+            {
+                if (!convertdoc._docEntity.isStore)
+                {
+                    convertdoc._docEntity.isStore = true;
+                    _repository.Update<DocumentEntity>(convertdoc._docEntity);
+                    
+                }
                 return Json(parseEntity, JsonRequestBehavior.AllowGet);
+            }
             return null;
         }
 

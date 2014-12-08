@@ -32,25 +32,30 @@ namespace shenxl.qingdoc.Document
 
         public override void ConvertToHtml()
         {
-            Aspose.Cells.Workbook xls = new Aspose.Cells.Workbook(_docEntity.FilePath);
-            _docEntity.HtmlData = new HtmlParseContext();
-            _docEntity.HtmlData.PageNumber = xls.Worksheets.Count;
-            foreach (Aspose.Cells.Worksheet item in xls.Worksheets)
+            if (!_docEntity.isConvert && String.IsNullOrEmpty(_docEntity.ConvertError))
             {
-                Aspose.Cells.HtmlSaveOptions htmlsaveoption = new Aspose.Cells.HtmlSaveOptions(Aspose.Cells.SaveFormat.Html);
-                htmlsaveoption.AttachedFilesDirectory = Path.Combine(_docEntity.ResourcesPath, "image");
-                htmlsaveoption.HtmlCrossStringType = Aspose.Cells.HtmlCrossType.Cross;
-                using (MemoryStream htmlStream = new MemoryStream())
+                Aspose.Cells.Workbook xls = new Aspose.Cells.Workbook(_docEntity.FilePath);
+                _docEntity.HtmlData = new HtmlParseContext();
+                _docEntity.HtmlData.PageNumber = xls.Worksheets.Count;
+                foreach (Aspose.Cells.Worksheet item in xls.Worksheets)
                 {
-                    try
+                    Aspose.Cells.HtmlSaveOptions htmlsaveoption = new Aspose.Cells.HtmlSaveOptions(Aspose.Cells.SaveFormat.Html);
+                    htmlsaveoption.AttachedFilesDirectory = Path.Combine(_docEntity.ResourcesPath, "image");
+                    htmlsaveoption.HtmlCrossStringType = Aspose.Cells.HtmlCrossType.Cross;
+                    using (MemoryStream htmlStream = new MemoryStream())
                     {
-                        xls.Worksheets.ActiveSheetIndex = item.Index;
-                        xls.Save(htmlStream, htmlsaveoption);
-                        _docEntity.HtmlData.HtmlContent.Add(Encoding.UTF8.GetString(htmlStream.ToArray()));
-                    }
-                    catch (Exception e)
-                    {
-                        var message = e.Message;
+                        try
+                        {
+                            xls.Worksheets.ActiveSheetIndex = item.Index;
+                            xls.Save(htmlStream, htmlsaveoption);
+                            _docEntity.HtmlData.HtmlContent.Add(Encoding.UTF8.GetString(htmlStream.ToArray()));
+                            _docEntity.isConvert = true;
+                        }
+                        catch (Exception e)
+                        {
+                            _docEntity.isConvert = false;
+                            _docEntity.ConvertError = e.Message;
+                        }
                     }
                 }
             }
@@ -62,38 +67,42 @@ namespace shenxl.qingdoc.Document
             ///如果已经解析过的文档就不需要重复处理了
             ///此动作后续需要配合存储一起重构
             //_docEntity.HtmlData.ParseContentList = new List<HtmlParseData>();
-            foreach (var htmldata in _docEntity.HtmlData.HtmlContent)
+            if (!_docEntity.isParse)
             {
-                ///获取当前工作表的表名
-                var worksheetname =  TITLE_REGEX.Match(htmldata).Groups["name"].Value;
-                MatchCollection tablematches = TABLE_REGEX.Matches(htmldata);
-                if (String.IsNullOrEmpty(_docEntity.HtmlData.StyleUrl))
+                foreach (var htmldata in _docEntity.HtmlData.HtmlContent)
                 {
-                    var style = STYLE_REGEX.Match(htmldata).Groups["style"].Value;
-                    FileUtils.WriteStyleFile(style, Path.Combine(_docEntity.ResourcesPath, "etStyle.css"));
-                    _docEntity.HtmlData.StyleUrl = _docEntity.VirtualResourcesPath + "/" + "etStyle.css";
-                }
-                var count = 1;
-                foreach (Match tablematcher in tablematches)
-                {
-                    HtmlParseData divcontent = new HtmlParseData();
-                    divcontent.pagecount = count;
-                    divcontent.title = worksheetname;
-                    var table = tablematcher.Groups["table"].Value;
-                    var imagematchers = DIV_IMAGE_REGEX.Matches(table);
-                    foreach (Match iamgematcher in imagematchers)
+                    ///获取当前工作表的表名
+                    var worksheetname = TITLE_REGEX.Match(htmldata).Groups["name"].Value;
+                    MatchCollection tablematches = TABLE_REGEX.Matches(htmldata);
+                    if (String.IsNullOrEmpty(_docEntity.HtmlData.StyleUrl))
                     {
-                        var src = iamgematcher.Groups["src"].Value;
-                        var replace = _docEntity.VirtualResourcesPath + "/" +
-                                _docEntity.ImageFolder + "/" + Path.GetFileName(src);
-                        table = table.Replace(src, replace);
+                        var style = STYLE_REGEX.Match(htmldata).Groups["style"].Value;
+                        FileUtils.WriteStyleFile(style, Path.Combine(_docEntity.ResourcesPath, "etStyle.css"));
+                        _docEntity.HtmlData.StyleUrl = _docEntity.VirtualResourcesPath + "/" + "etStyle.css";
                     }
-                    divcontent.content = table;
-                    _docEntity.HtmlData.ParseContentList.Add(divcontent);
-                    count++;
+                    var count = 1;
+                    foreach (Match tablematcher in tablematches)
+                    {
+                        HtmlParseData divcontent = new HtmlParseData();
+                        divcontent.pagecount = count;
+                        divcontent.title = worksheetname;
+                        var table = tablematcher.Groups["table"].Value;
+                        var imagematchers = DIV_IMAGE_REGEX.Matches(table);
+                        foreach (Match iamgematcher in imagematchers)
+                        {
+                            var src = iamgematcher.Groups["src"].Value;
+                            var replace = _docEntity.VirtualResourcesPath + "/" +
+                                    _docEntity.ImageFolder + "/" + Path.GetFileName(src);
+                            table = table.Replace(src, replace);
+                        }
+                        divcontent.content = table;
+                        _docEntity.HtmlData.ParseContentList.Add(divcontent);
+                        count++;
+                    }
                 }
+                _docEntity.isParse = true;
+                _docEntity.ConvertCompleteTime = DateTime.Now;
             }
-            _docEntity.ConvertCompleteTime = DateTime.Now;
             return JsonDocEntity.Convert(_docEntity);
         }
     }

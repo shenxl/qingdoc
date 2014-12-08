@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,10 +12,8 @@ namespace shenxl.qingdoc.Common.Entities
     /// <summary>
     /// 继承Entity实体
     /// </summary>
-    public class DocumentEntity : Entity<Guid>
+    public class DocumentEntity : Entity<ObjectId>
     {
-        public Guid Id { get; set; }
-
         public String FilePath { get; set; }
         public String FileName { get; set; }
         public String FileMD5 { get; set; }
@@ -21,6 +21,11 @@ namespace shenxl.qingdoc.Common.Entities
         public String ResourcesPath { get; set; }
         public String FileExtension { get; set; }
 
+        public bool isConvert { get; set; }
+        public string ConvertError { get; set; }
+
+        public bool isParse { get; set; }
+        public bool isStore { get; set; }
         /// <summary>
         /// 构造函数，保证引用属性初始化
         /// </summary>
