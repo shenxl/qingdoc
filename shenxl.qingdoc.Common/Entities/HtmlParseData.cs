@@ -23,6 +23,11 @@ namespace shenxl.qingdoc.Common.Entities
         public string url { get; set; }
 
         /// <summary>
+        /// 提供给演示的页面视图
+        /// </summary>
+        public string thumbUrl { get; set; }
+
+        /// <summary>
         /// 提供给表格的worksheet名称
         /// </summary>
         public string title { get; set; }

@@ -255,6 +255,9 @@
     <Content Include="Content\dropzone\Style\stylus\basic.styl" />
     <Content Include="Content\dropzone\Style\stylus\dropzone.styl" />
     <None Include="Properties\PublishProfiles\qingdocDeploy.pubxml" />
+    <Content Include="Images\arr_left.cur" />
+    <Content Include="Images\arr_right.cur" />
+    <Content Include="Images\glyphicons-halflings-white.png" />
     <Content Include="Scripts\ckeditor\bower.json" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\composer.json" />
@@ -2706,6 +2709,7 @@
     <None Include="Scripts\DocView\word.jssss" />
     <Content Include="Scripts\dropzone.js" />
     <Content Include="Scripts\excel.js" />
+    <Content Include="Scripts\ppt.js" />
     <Content Include="Scripts\word.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -2770,6 +2774,7 @@
     <Content Include="Views\File\UploadFile.cshtml" />
     <Content Include="Views\Shared\CKEditor.cshtml.cshtml" />
     <Content Include="Views\MongoDBTest\Index.cshtml" />
+    <Content Include="Views\File\_ShowPPT.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

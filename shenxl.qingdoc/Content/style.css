@@ -1,7 +1,4 @@
-/**
- * Copyright 2013 I Doc View
- * @author Godwin <godwin668@gmail.com>
- */
+
 
 /* ---------------------------------------------------------------------- */
 /*	Content
@@ -185,13 +182,13 @@
 		top: 0;
 		left: 0px;
 		z-index: 500;
-		cursor: url("../img/arr_left.cur"), auto;
+		cursor: url("../Images/arr_left.cur"), auto;
 		display: block;
 	}
 	.ppt-turn-right-mask {
 		left: inherit;
 		right: 0;
-		cursor: url("../img/arr_right.cur"), auto;
+		cursor: url("../Images/arr_right.cur"), auto;
 	}
 	
 	/* -------------------------------------------------- */
@@ -266,7 +263,7 @@
 	/* -------------------------------------------------- */
 
 	#back-to-top, .touch-device #back-to-top:hover {
-		background: url(../img/arrow-up-large.png) no-repeat center center;
+		background: url(../Images/arrow-up-large.png) no-repeat center center;
 		background-color: rgb(221, 221, 221);
 		background-color: rgba(221, 221, 221, .7);
 		bottom: 20px;

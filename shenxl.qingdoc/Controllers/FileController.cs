@@ -43,8 +43,12 @@ namespace shenxl.qingdoc.Controllers
             {
                 case DocumentType.Word:
                     return View("_ShowWord", new { id = id });
+
                 case DocumentType.Excel:
                     return View("_ShowExcel",new { id = id });
+
+                case DocumentType.PowerPoint:
+                    return View("_ShowPPT", new { id = id });
                 default:
                     return View();
             }
@@ -118,8 +122,10 @@ namespace shenxl.qingdoc.Controllers
             ///留下与后续数据存放的逻辑一同实现
             convertdoc.ConvertToHtml();      
             var parseEntity = convertdoc.ParseHtmlToEntity();
+            //若解析文档不成功，则直接返回
             if (parseEntity != null)
             {
+                //若文档已经存储过，则跳过存储逻辑
                 if (!convertdoc._docEntity.isStore)
                 {
                     convertdoc._docEntity.isStore = true;
