@@ -27,6 +27,12 @@ namespace shenxl.qingdoc.Common.DataAccess
             _entityList.Add(doc);
         }
 
+        public void Update(IEntity doc)
+        {
+            var change = _entityList.Where(item => item.Key.Equals(doc.Key)).SingleOrDefault();
+            change = doc;
+        }
+
         public IEntity Get(object id)
         {
             return _entityList.Where(item => item.Key.Equals(id)).SingleOrDefault();

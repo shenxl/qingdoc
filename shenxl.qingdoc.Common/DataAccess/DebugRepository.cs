@@ -71,12 +71,13 @@ namespace shenxl.qingdoc.Common.DataAccess
 
         public void Update<TModel>(TModel instance) where TModel : class, IEntity
         {
-            throw new NotImplementedException();
+            _context.Update(instance);
         }
 
 
         public void Update<TModel>(TModel instance, string updatename, object updateobj) where TModel : class, IEntity
         {
+
             throw new NotImplementedException();
         }
     }

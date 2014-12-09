@@ -62,6 +62,28 @@ namespace shenxl.qingdoc.Document.Util
         }
 
         /// <summary>
+        /// 读取生成的文件
+        /// </summary>
+        /// <param name="filepath">文件路径</param>
+        /// <returns></returns>
+        public static string ReadFile(string filepath)
+        {
+            StringBuilder html = new StringBuilder();
+            using (StreamReader objReader = new StreamReader(filepath, Encoding.Default))
+            {
+                string sLine = "";
+
+                while (sLine != null)
+                {
+                    sLine = objReader.ReadLine();
+                    if (sLine != null && !sLine.Equals(""))
+                        html.AppendLine(sLine);
+                }
+            }
+            return html.ToString();
+        }
+
+        /// <summary>
         /// 生成样式文件
         /// </summary>
         /// <param name="style"></param>

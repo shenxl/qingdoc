@@ -1,6 +1,7 @@
 ﻿using shenxl.qingdoc.Common.DataAccess;
 using shenxl.qingdoc.Common.Entities;
 using shenxl.qingdoc.Document;
+using shenxl.qingdoc.Document.ConvertComponent;
 using shenxl.qingdoc.Document.Factory;
 using shenxl.qingdoc.Document.Util;
 using shenxl.qingdoc.Filters;
@@ -117,11 +118,11 @@ namespace shenxl.qingdoc.Controllers
         public ActionResult read(string id)
         {
             DocumentEntity doc = _repository.Single<DocumentEntity>(id);
-            ConvertDocument convertdoc = DocumentFactory.CreateDocument(doc);
+            ConvertDocument convertdoc = new ConvertDocument(doc,ConvertComponentType.AsposeComponent);
             ///未考虑到的情况： 如果文档已经解析完毕，是否需要重新解析
             ///留下与后续数据存放的逻辑一同实现
-            convertdoc.ConvertToHtml();      
-            var parseEntity = convertdoc.ParseHtmlToEntity();
+            JsonDocEntity parseEntity = convertdoc.ProcessDocument();
+
             //若解析文档不成功，则直接返回
             if (parseEntity != null)
             {

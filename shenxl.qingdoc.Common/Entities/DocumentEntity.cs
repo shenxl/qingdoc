@@ -33,11 +33,17 @@ namespace shenxl.qingdoc.Common.Entities
         {
             HtmlData = new HtmlParseContext();
         }
-
+        private string _imageFolder;
         public String ImageFolder
         {
-            get {
-                return "Image";
+            get
+            { 
+                if(String.IsNullOrEmpty(_imageFolder))
+                    return "Image";
+                return _imageFolder;
+            }
+            set{
+                _imageFolder = value;
             }
         }
         public DateTime UploadTime { get; set; }

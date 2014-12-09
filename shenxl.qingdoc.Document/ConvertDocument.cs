@@ -6,33 +6,34 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using shenxl.qingdoc.Common.Entities;
+using shenxl.qingdoc.Document.ConvertComponent;
+using shenxl.qingdoc.Document.Factory;
 
 namespace shenxl.qingdoc.Document
 {
-    public abstract class ConvertDocument
+    public class ConvertDocument
     {
         public DocumentEntity _docEntity { get; set; }
+        public ConvertComponentType _docConvertComponent { get; set; }
 
-        /// <summary>
-        /// 将转换的HTML解析为Div
-        /// </summary>
-        protected static readonly RegexOptions REGEX_OPTIONS =
-                    RegexOptions.Compiled | RegexOptions.IgnoreCase | 
-                    RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace;
 
         public ConvertDocument(DocumentEntity docEntity)
         {
             _docEntity = docEntity;
+            _docConvertComponent =  ConvertComponentType.AsposeComponent;
         }
-        /// <summary>
-        /// Doc转换到HTML
-        /// </summary>
-        public abstract void ConvertToHtml();
-        /// <summary>
-        /// 解析文档内容为前端显示的Json实体
-        /// </summary>
-        /// <returns></returns>
-        public abstract JsonDocEntity ParseHtmlToEntity();
+
+        public ConvertDocument(DocumentEntity docEntity, ConvertComponentType component)
+        {
+            _docEntity = docEntity;
+            _docConvertComponent = component;
+        }
+
+        public JsonDocEntity ProcessDocument()
+        {
+            var processComponent = ComponentFactory.CreateComponent(_docEntity.Type, _docConvertComponent);
+            return processComponent.ParseHtmlToEntity(processComponent.ConvertToHtml(_docEntity));
+        }
 
     }
 }
