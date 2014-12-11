@@ -61,7 +61,7 @@ namespace shenxl.qingdoc.Document.ConvertComponent
             return _docEntity;
         }
 
-        public override Common.Entities.JsonDocEntity ParseHtmlToEntity(DocumentEntity _docEntity)
+        public override JsonDocEntity ParseHtmlToEntity(DocumentEntity _docEntity)
         {
             if (_docEntity.isConvert && !_docEntity.isParse)
             {
@@ -106,10 +106,6 @@ namespace shenxl.qingdoc.Document.ConvertComponent
             return JsonDocEntity.Convert(_docEntity);
         }
     }
-
-
-
-
     public class HandleImageSaving : IImageSavingCallback
     {
         public void ImageSaving(ImageSavingArgs args)

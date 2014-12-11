@@ -121,6 +121,7 @@ namespace shenxl.qingdoc.Controllers
             ConvertDocument convertdoc = new ConvertDocument(doc,ConvertComponentType.AsposeComponent);
             ///未考虑到的情况： 如果文档已经解析完毕，是否需要重新解析
             ///留下与后续数据存放的逻辑一同实现
+            ///update 2014-12-11已完成 逻辑在ProcessDocument中实现
             JsonDocEntity parseEntity = convertdoc.ProcessDocument();
 
             //若解析文档不成功，则直接返回

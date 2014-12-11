@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="shenxl.qingdoc.Document.ConvertDocument" Collapsed="true">
+    <Position X="9.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAIEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConvertDocument.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="shenxl.qingdoc.Document.Factory.ComponentFactory" Collapsed="true">
+    <Position X="9.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Factory\ComponentFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="shenxl.qingdoc.Document.ConvertComponent.AsposeExcelComponent" Collapsed="true">
+    <Position X="3.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAEAAAAAAAAAAAgAAAAARAAAAAAAAAABAEAAAAA=</HashCode>
+      <FileName>ConvertComponent\AsposeComponent\AsposeExcelComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="shenxl.qingdoc.Document.ConvertComponent.AsposePPTComponent" Collapsed="true">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConvertComponent\AsposeComponent\AsposePPTComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="shenxl.qingdoc.Document.ConvertComponent.AsposeWordComponent" Collapsed="true">
+    <Position X="7" Y="3" Width="1.5" />
+    <InheritanceLine Type="shenxl.qingdoc.Document.ConvertComponent.BaseComponent" FixedToPoint="true">
+      <Path>
+        <Point X="5" Y="1.059" />
+        <Point X="5" Y="1.375" />
+        <Point X="8.062" Y="1.375" />
+        <Point X="8.062" Y="3" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAQAEAAAAAAAAAAAgAAAAAAAAAAAAAAAABAEAAAAA=</HashCode>
+      <FileName>ConvertComponent\AsposeComponent\AsposeWordComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="shenxl.qingdoc.Document.ConvertComponent.HandleImageSaving" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConvertComponent\AsposeComponent\AsposeWordComponent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="shenxl.qingdoc.Document.ConvertComponent.MSExcelComponent" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAEAAAAAAAAAAAgAAAAARAAAAAAAAAABAEAAAAA=</HashCode>
+      <FileName>ConvertComponent\MSComponent\MSExcelComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="shenxl.qingdoc.Document.ConvertComponent.MSPPTComponent" Collapsed="true">
+    <Position X="5.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConvertComponent\MSComponent\MSPPTComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="shenxl.qingdoc.Document.ConvertComponent.MSWordComponent" Collapsed="true">
+    <Position X="1.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAEAAAAAQAAAAAgAAAAAAAAAAAAAAAABAEAAAAA=</HashCode>
+      <FileName>ConvertComponent\MSComponent\MSWordComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="shenxl.qingdoc.Document.ConvertComponent.BaseComponent" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAhAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConvertComponent\BaseComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="shenxl.qingdoc.Document.ConvertComponent.ConvertComponentType" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAgAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConvertComponent\BaseComponent.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei" Size="9" />
+</ClassDiagram>

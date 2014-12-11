@@ -15,7 +15,7 @@ namespace shenxl.qingdoc
         public static void RegisterIOCContainer()
         {
             IUnityContainer container = new UnityContainer();
-            container.RegisterType<IRepository,DebugRepository>();
+            container.RegisterType<IRepository,MongoDbRepository>();
             container.RegisterType<IControllerFactory, UnityControllerFactory>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
