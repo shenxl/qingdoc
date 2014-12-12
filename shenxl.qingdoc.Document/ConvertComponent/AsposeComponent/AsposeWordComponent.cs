@@ -87,14 +87,20 @@ namespace shenxl.qingdoc.Document.ConvertComponent
 
                     var div = divmatcher.Groups["div"].Value;
                     var imagematchers = DIV_IMAGE_REGEX.Matches(div);
-                    //根据VirtualResourcesPath属性替换当前页面的Image地址
+
+                    HashSet<String> hs = new HashSet<string>();
                     foreach (Match iamgematcher in imagematchers)
                     {
                         var src = iamgematcher.Groups["src"].Value;
-                        var replace = _docEntity.VirtualResourcesPath + "/" +
-                                _docEntity.ImageFolder + "/" + Path.GetFileName(src);
-                        div = div.Replace(src, replace);
+                        hs.Add(src);
                     }
+
+                    foreach (var item in hs)
+                    {
+                        div = div.Replace(item, _docEntity.VirtualResourcesPath + "/" +
+                            _docEntity.ImageFolder + "/" + Path.GetFileName(item));
+                    }
+
                     divcontent.content = div;
                     _docEntity.HtmlData.ParseContentList.Add(divcontent);
 

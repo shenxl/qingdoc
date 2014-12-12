@@ -30,11 +30,10 @@ namespace shenxl.qingdoc.Document.ConvertComponent
             if (!_docEntity.isConvert && String.IsNullOrEmpty(_docEntity.ConvertError))
             {
                 //var imagePath = Path.Combine(_docEntity.ResourcesPath, _docEntity.ImageFolder);
-
+                Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+                Microsoft.Office.Interop.Word.Document doc = word.Documents.Open(_docEntity.FilePath);
                 try
-                {
-                    Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
-                    Microsoft.Office.Interop.Word.Document doc = word.Documents.Open(_docEntity.FilePath);
+                {   
                     //记录解析前的页面数
                     //_docEntity.HtmlData.PageNumber = doc.PageSetup.PaperSize
                     var outputpath = Path.Combine(_docEntity.ResourcesPath,"Convert");
@@ -43,8 +42,7 @@ namespace shenxl.qingdoc.Document.ConvertComponent
                         Directory.CreateDirectory(outputpath);
                     word.ChangeFileOpenDirectory(outputpath);
                     doc.SaveAs2("output.htm", WdSaveFormat.wdFormatFilteredHTML);
-                    doc.Close(Type.Missing, Type.Missing, Type.Missing);
-                    word.Quit(Type.Missing, Type.Missing, Type.Missing);
+                    
                     _docEntity.HtmlData.HtmlContent.Add(FileUtils.ReadFile(Path.Combine(outputpath,"output.htm")));
                     _docEntity.isConvert = true;
                 }
@@ -53,6 +51,8 @@ namespace shenxl.qingdoc.Document.ConvertComponent
                     _docEntity.isConvert = false;
                     _docEntity.ConvertError = e.Message;
                 }
+                doc.Close(Type.Missing, Type.Missing, Type.Missing);
+                word.Quit(Type.Missing, Type.Missing, Type.Missing);
             }
             return _docEntity;
         }
@@ -80,13 +80,19 @@ namespace shenxl.qingdoc.Document.ConvertComponent
                     var div = divmatcher.Groups["div"].Value;
                     var imagematchers = DIV_IMAGE_REGEX.Matches(div);
                     //根据VirtualResourcesPath属性替换当前页面的Image地址
+                    HashSet<String> hs = new HashSet<string>();
                     foreach (Match iamgematcher in imagematchers)
                     {
                         var src = iamgematcher.Groups["src"].Value;
-                        var replace = _docEntity.VirtualResourcesPath + "/" +
-                                _docEntity.ImageFolder + "/" + Path.GetFileName(src);
-                        div = div.Replace(src, replace);
+                        hs.Add(src);
                     }
+
+                    foreach (var item in hs)
+                    {
+                        div = div.Replace(item, _docEntity.VirtualResourcesPath + "/" +
+                            _docEntity.ImageFolder + "/" + Path.GetFileName(item));
+                    }
+
                     divcontent.content = div;
                     _docEntity.HtmlData.ParseContentList.Add(divcontent);
 

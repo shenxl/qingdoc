@@ -23,8 +23,9 @@ namespace shenxl.qingdoc
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            UnityConfig.RegisterIOCContainer();
+            //UnityConfig.RegisterIOCContainer();
             AuthConfig.RegisterAuth();
+            Bootstrapper.RegisterIOCContainer();
         }
     }
 }

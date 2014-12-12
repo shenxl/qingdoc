@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
@@ -118,7 +119,10 @@ namespace shenxl.qingdoc.Controllers
         public ActionResult read(string id)
         {
             DocumentEntity doc = _repository.Single<DocumentEntity>(id);
-            ConvertDocument convertdoc = new ConvertDocument(doc,ConvertComponentType.AsposeComponent);
+            var fields = typeof(ConvertComponentType).GetFields(BindingFlags.Static | BindingFlags.Public);
+            var componentName = ConfigurationManager.AppSettings["Component"];
+            ConvertComponentType selectenum = (ConvertComponentType)Enum.Parse(typeof(ConvertComponentType), componentName, false);
+            ConvertDocument convertdoc = new ConvertDocument(doc, selectenum);
             ///未考虑到的情况： 如果文档已经解析完毕，是否需要重新解析
             ///留下与后续数据存放的逻辑一同实现
             ///update 2014-12-11已完成 逻辑在ProcessDocument中实现

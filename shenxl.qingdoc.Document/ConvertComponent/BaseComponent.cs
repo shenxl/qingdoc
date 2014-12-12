@@ -16,6 +16,7 @@ namespace shenxl.qingdoc.Document.ConvertComponent
         protected static readonly RegexOptions REGEX_OPTIONS =
                     RegexOptions.Compiled | RegexOptions.IgnoreCase |
                     RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace;
+
         /// <summary>
         /// Doc转换到HTML
         /// </summary>

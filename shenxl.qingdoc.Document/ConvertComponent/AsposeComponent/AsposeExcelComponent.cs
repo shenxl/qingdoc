@@ -83,12 +83,18 @@ namespace shenxl.qingdoc.Document.ConvertComponent
                         divcontent.title = worksheetname;
                         var table = tablematcher.Groups["table"].Value;
                         var imagematchers = DIV_IMAGE_REGEX.Matches(table);
+
+                        HashSet<String> hs = new HashSet<string>();
                         foreach (Match iamgematcher in imagematchers)
                         {
                             var src = iamgematcher.Groups["src"].Value;
-                            var replace = _docEntity.VirtualResourcesPath + "/" +
-                                    _docEntity.ImageFolder + "/" + Path.GetFileName(src);
-                            table = table.Replace(src, replace);
+                            hs.Add(src);
+                        }
+
+                        foreach (var item in hs)
+                        {
+                            table = table.Replace(item, _docEntity.VirtualResourcesPath + "/" +
+                                _docEntity.ImageFolder + "/" + Path.GetFileName(item));
                         }
                         divcontent.content = table;
                         _docEntity.HtmlData.ParseContentList.Add(divcontent);

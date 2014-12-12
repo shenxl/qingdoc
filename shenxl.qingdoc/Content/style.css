@@ -1,5 +1,3 @@
-
-
 /* ---------------------------------------------------------------------- */
 /*	Content
 /* ---------------------------------------------------------------------- */
@@ -108,7 +106,7 @@
 	}
 
 	.word-body table {
-		width: 100% !important;
+		width: auto !important;
 	}
 
 	.word-page{
@@ -134,14 +132,7 @@
 		padding-top: 10%;
 		padding-bottom: 10%;
 	}
-
-    .word-page .word-content a{
-        color: black;
-	}
-
-	.word-page .word-content a:link{text-decoration:none;}
-    .word-page .word-content a:visited{text-decoration:none;}
-    .word-page .word-content a:hover{text-decoration:none;} 
+	
 	.doc-page .doc-content p{
 		word-wrap:break-word;
 		word-break:normal;
@@ -182,13 +173,13 @@
 		top: 0;
 		left: 0px;
 		z-index: 500;
-		cursor: url("../Images/arr_left.cur"), auto;
+		cursor: url("../img/arr_left.cur"), auto;
 		display: block;
 	}
 	.ppt-turn-right-mask {
 		left: inherit;
 		right: 0;
-		cursor: url("../Images/arr_right.cur"), auto;
+		cursor: url("../img/arr_right.cur"), auto;
 	}
 	
 	/* -------------------------------------------------- */
@@ -252,18 +243,18 @@
 		text-align: center !important;
 	}
 	
-
+	/*
 	table, tbody, tfoot, thead, tr, th, td {
-		/*border: 1px solid black !important;*/
+		border: 1px solid #dddddd !important;
 	}
-
+	*/
 
 	/* -------------------------------------------------- */
 	/*	Back to Top
 	/* -------------------------------------------------- */
 
 	#back-to-top, .touch-device #back-to-top:hover {
-		background: url(../Images/arrow-up-large.png) no-repeat center center;
+		background: url(../img/arrow-up-large.png) no-repeat center center;
 		background-color: rgb(221, 221, 221);
 		background-color: rgba(221, 221, 221, .7);
 		bottom: 20px;
